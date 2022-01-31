@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/emilmemmedov/npm-payment#readme",
   "dependencies": {
+    "axios": "^0.25.0",
     "dotenv": "^15.0.0"
   }
 }
