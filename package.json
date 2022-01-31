@@ -1,11 +1,19 @@
 {
   "name": "npm-payment",
   "version": "1.0.0",
-  "description": "It is Payment Integration package for node Projects",
+  "description": "It is Payment Integration for Node projects",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emilmemmedov/npm-payment.git"
+  },
   "author": "Emil",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emilmemmedov/npm-payment/issues"
+  },
+  "homepage": "https://github.com/emilmemmedov/npm-payment#readme"
 }
