@@ -1,4 +1,6 @@
 require('dotenv/config')
+var crypto = require('crypto');
+
 const axios = require('axios');
 
 const drivers = ['AzeriCart'];
@@ -77,7 +79,7 @@ function hex2bin(hexdata) {
     return $bindata;
 }
 
-function applyForAzericart(data, backref){
+async function applyForAzericart(data, backref){
     console.log(data);
     const url = process.env.AZERICARD_URL;
     const currency = process.env.CURRENCY;
@@ -124,8 +126,11 @@ function applyForAzericart(data, backref){
             + getLengthItem(request['BACKREF'])
 
         let keyForSignIn = process.env.KEY_FOR_SIGN_IN;
-        let p_sign = 'f'
-        // axios.post(process.env.AZERICARD_URL)
+        request['P_SIGN'] = crypto.createHmac("sha1", hex2bin(keyForSignIn)).update(to_sign).digest();
+
+        return await axios.post(process.env.AZERICARD_URL, request).then(response => {
+            return response;
+        })
     }
 }
 
