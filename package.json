@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/emilmemmedov/npm-payment/issues"
   },
-  "homepage": "https://github.com/emilmemmedov/npm-payment#readme"
+  "homepage": "https://github.com/emilmemmedov/npm-payment#readme",
+  "dependencies": {
+    "dotenv": "^15.0.0"
+  }
 }
