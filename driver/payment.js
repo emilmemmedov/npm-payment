@@ -5,20 +5,21 @@ import { approve as azeriCardApprove } from "../services/azericard.js";
 export class Payment{
     driver = '';
 
-    apply(){
+    async apply(){
         switch (this.driver){
             case drivers.AZERICARD: {
-                return azeriCardApply().then(res => {
+                return await azeriCardApply().then(res => {
                     return res;
                 })
             }
         }
     }
-    approve(){
+    async approve(){
         switch (this.driver){
             case drivers.AZERICARD: {
-                azeriCardApprove()
-                break;
+                return await azeriCardApprove().then(res =>{
+                    return res;
+                })
             }
         }
     }
