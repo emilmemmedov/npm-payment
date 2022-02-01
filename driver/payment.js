@@ -3,7 +3,7 @@ import { apply as azeriCardApply } from "../services/azericard.js";
 import { approve as azeriCardApprove } from "../services/azericard.js";
 
 export class Payment{
-    driver = '';
+    private driver = '';
 
     async apply(data, backRef){
         switch (this.driver){
