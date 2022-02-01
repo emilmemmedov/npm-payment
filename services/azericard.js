@@ -33,7 +33,7 @@ function getUtcTime(){
 }
 
 function getLengthItem(item){
-    return item.toString().length + '' + item.toString().length;
+    return item.toString().length + '' + item.toString();
 }
 
 function chr(n) {
@@ -109,7 +109,7 @@ export async function apply(data, backRef){
             + getLengthItem(request['BACKREF'])
 
         let keyForSignIn = process.env.KEY_FOR_SIGN_IN;
-        request['P_SIGN'] = crypto.createHmac("sha1", hex2bin(keyForSignIn)).update(to_sign).digest();
+        request['P_SIGN'] = crypto.createHmac("sha1", hex2bin(keyForSignIn)).update(to_sign).digest('hex').toString('base64');
 
         return await axios.post(url, request).then(response => {
             return response;
@@ -165,7 +165,7 @@ export async function approve(data){
 
     let keyForSignIn = process.env.KEY_FOR_SIGN_IN;
 
-    request['P_SIGN'] = crypto.createHmac("sha1", hex2bin(keyForSignIn)).update(to_sign).digest();
+    request['P_SIGN'] = crypto.createHmac("sha1", hex2bin(keyForSignIn)).update(to_sign).digest('hex').toString('base64');;
 
     let params = '';
 
