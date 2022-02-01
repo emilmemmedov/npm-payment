@@ -1,6 +1,6 @@
 import crypto from "crypto";
-
-const axios = require('axios');
+import axios from "axios";
+import 'dotenv/config';
 
 const type = {
     auth: 1,
@@ -111,7 +111,7 @@ export async function apply(data, backRef){
         let keyForSignIn = process.env.KEY_FOR_SIGN_IN;
         request['P_SIGN'] = crypto.createHmac("sha1", hex2bin(keyForSignIn)).update(to_sign).digest();
 
-        return await axios.post(process.env.AZERICARD_URL, request).then(response => {
+        return await axios.post(url, request).then(response => {
             return response;
         })
     }
