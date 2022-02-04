@@ -1,6 +1,6 @@
-import crypto from "crypto";
-import axios from "axios";
-import 'dotenv/config';
+const crypto = require("crypto");
+const axios = require("axios");
+require('dotenv/config');
 
 const type = {
     auth: 1,
@@ -62,7 +62,7 @@ function hex2bin(hexdata) {
     return binData;
 }
 
-export async function apply(data, backRef){
+async function apply(data, backRef){
     console.log(data);
     const url = process.env.AZERICARD_URL;
     const currency = process.env.CURRENCY;
@@ -146,7 +146,7 @@ async function sendForCheckout(url, params){
     });
 }
 
-export async function approve(data){
+async function approve(data){
     const request = {
         'AMOUNT': data.amount,
         'CURRENCY': currency,
@@ -185,4 +185,9 @@ export async function approve(data){
     const url = process.env.AZERICARD_URL;
 
     return await sendForCheckout(url,params);
+}
+
+module.exports = {
+    apply,
+    approve
 }

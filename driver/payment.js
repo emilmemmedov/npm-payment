@@ -1,9 +1,8 @@
-import drivers from "../config/drivers";
-import { apply as azeriCardApply } from "../services/azericard.js";
-import { approve as azeriCardApprove } from "../services/azericard.js";
+const drivers = require("../config/drivers");
+const {apply: azeriCardApply, approve: azeriCardApprove} = require("../services/azericard.js");
 
-export class Payment{
-    private driver = '';
+class Payment{
+    driver = '';
 
     async apply(data, backRef){
         switch (this.driver){
@@ -23,4 +22,8 @@ export class Payment{
             }
         }
     }
+}
+
+module.exports = {
+    Payment
 }

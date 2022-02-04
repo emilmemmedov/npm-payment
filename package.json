@@ -1,6 +1,6 @@
 {
   "name": "npm-payment",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "It is Payment Integration for Node projects",
   "main": "index.js",
   "scripts": {

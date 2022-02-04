@@ -1,10 +1,13 @@
-import {Payment} from "./payment.js";
-import drivers from "../config/drivers.js";
+const {Payment} = require("./payment.js");
+const drivers = require("../config/drivers.js")
 
-export class Azericard extends Payment{
+class Azericard extends Payment{
 
     constructor() {
         super();
         super.driver = drivers.AZERICARD;
     }
+}
+module.exports = {
+    Azericard
 }
