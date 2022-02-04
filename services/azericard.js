@@ -75,44 +75,51 @@ export async function apply(data, backRef){
         throw Error('please add Azeri card URL to .env file');
     }
     else{
-        const request = {
-            'AMOUNT': data.amount,
-            'CURRENCY': currency,
-            'ORDER': convertToBinary(data.id),
-            'DESC': 'Description of the sale',
-            'MERCH_NAME': companyName,
-            'MERCH_URL': returningUrl,
-            'TERMINAL': terminal,			// That is your personal ID in payment system
-            'EMAIL': companyEmail,
-            'TRTYPE': type.auth,				// That is the type of operation, 1 - Authorization and checkout
-            'COUNTRY': 'AZ',
-            'MERCH_GMT': "+4",
-            'BACKREF': backRef,
-            'NONCE': randomMd5(0,16),
-            'TIMESTAMP':getUtcTime(),
-            'LANG': 'AZ'
-        }
+        const params = new URLSearchParams();
+        params.append('AMOUNT', data.amount);
+        params.append('CURRENCY', currency);
+        params.append('ORDER', getUtcTime());
+        params.append('DESC', 'Description of the sale');
+        params.append('MERCH_NAME', companyName);
+        params.append('MERCH_URL', returningUrl);
+        params.append('TERMINAL', terminal);
+        params.append('EMAIL', companyEmail);
+        params.append('TRTYPE', type.auth);
+        params.append('COUNTRY', 'AZ');
+        params.append('MERCH_GMT', "+4");
+        params.append('BACKREF', backRef);
+        params.append('NONCE', randomMd5(0,16));
+        params.append('TIMESTAMP', getUtcTime());
+        params.append('LANG', 'AZ');
+
         const to_sign = ''
-            + getLengthItem(request['AMOUNT'])
-            + getLengthItem(request['CURRENCY'])
-            + getLengthItem(request['ORDER'])
-            + getLengthItem(request['DESC'])
-            + getLengthItem(request['MERCH_NAME'])
-            + getLengthItem(request['MERCH_URL'])
-            + getLengthItem(request['TERMINAL'])
-            + getLengthItem(request['EMAIL'])
-            + getLengthItem(request['TRTYPE'])
-            + getLengthItem(request['COUNTRY'])
-            + getLengthItem(request['MERCH_GMT'])
-            + getLengthItem(request['TIMESTAMP'])
-            + getLengthItem(request['NONCE'])
-            + getLengthItem(request['BACKREF'])
+            + getLengthItem(params.get('AMOUNT'))
+            + getLengthItem(params.get('CURRENCY'))
+            + getLengthItem(params.get('ORDER'))
+            + getLengthItem(params.get('DESC'))
+            + getLengthItem(params.get('MERCH_NAME'))
+            + getLengthItem(params.get('MERCH_URL'))
+            + getLengthItem(params.get('TERMINAL'))
+            + getLengthItem(params.get('EMAIL'))
+            + getLengthItem(params.get('TRTYPE'))
+            + getLengthItem(params.get('COUNTRY'))
+            + getLengthItem(params.get('MERCH_GMT'))
+            + getLengthItem(params.get('TIMESTAMP'))
+            + getLengthItem(params.get('NONCE'))
+            + getLengthItem(params.get('BACKREF'))
 
         let keyForSignIn = process.env.KEY_FOR_SIGN_IN;
-        request['P_SIGN'] = crypto.createHmac("sha1", hex2bin(keyForSignIn)).update(to_sign).digest('hex').toString('base64');
+        params.append('P_SIGN',crypto.createHmac("sha1", hex2bin(keyForSignIn)).update(to_sign).digest('hex').toString('base64'));
 
-        return await axios.post(url, request).then(response => {
+        return await axios.post(url, params, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+        }).then(response => {
+            console.log(response)
             return response;
+        }).catch(er=>{
+            console.log(er);
         })
     }
 }
